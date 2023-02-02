@@ -4,7 +4,7 @@ type Props = {}
 
 const SaasPage = (props: Props) => {
   return (
-    <div>SaasPage</div>
+    <div>ここにはFAQの情報を記載していくaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
   )
 }
 

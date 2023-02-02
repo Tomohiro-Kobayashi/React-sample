@@ -1,9 +1,6 @@
 const sizeConfigs = {
     sidebar : {
-        width: "300px"
-    },
-    sidebarSmartPhone : {
-        width: "0px"
+        width: "240px"
     }
 };
 

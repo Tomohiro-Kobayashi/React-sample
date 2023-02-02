@@ -1,5 +1,5 @@
 import { ListItemButton, ListItemIcon } from '@mui/material';
-import React from 'react'
+import React, {FC} from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import colorConfigs from '../../configs/colorConfigs';
@@ -8,22 +8,24 @@ import { RouteType } from '../../routes/config';
 
 type Props = {
     item: RouteType
+    handleDrawerToggle?: () => void
 };
 
-const SidebarItem = ({item}: Props) => {
+const SidebarItem = (props: Props) => {
 
   const { appState } = useSelector((state: RootState) => state.appState)
 
   return (
-    item.sidebarProps && item.path ? (
+    props.item.sidebarProps && props.item.path ? (
         <ListItemButton
+          onClick={props.handleDrawerToggle}
           component={Link}
-          to={item.path}
+          to={props.item.path}
           sx={{
             "&: hover": {
                 backgroundColor: colorConfigs.sidebar.hoverBg
             },
-            backgroundColor: appState === item.state ? colorConfigs.sidebar.activeBg
+            backgroundColor: appState === props.item.state ? colorConfigs.sidebar.activeBg
             : "unset",
             paddingY:"12px",
             paddingX:"24px"
@@ -32,9 +34,9 @@ const SidebarItem = ({item}: Props) => {
         <ListItemIcon sx={{
             color: colorConfigs.sidebar.color
         }}>
-          {item.sidebarProps.icon && item.sidebarProps.icon}
+          {props.item.sidebarProps.icon && props.item.sidebarProps.icon}
         </ListItemIcon>
-        {item.sidebarProps.displayText}
+        {props.item.sidebarProps.displayText}
       </ListItemButton>
     ) : null
   )

@@ -68,7 +68,7 @@ const appRoutes: RouteType[] = [
     },
     {
         path: "/faq",
-        element: <ChangelogPage />,
+        element: <SaasPage />,
         state: "faq",
         sidebarProps :{
             displayText: "FAQ",

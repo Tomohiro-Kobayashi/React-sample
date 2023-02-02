@@ -9,22 +9,23 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 type Props = {
     item: RouteType
+    handleDrawerToggle?: () => void
 }
 
-const SidebarItemCollapse = ({ item }: Props) => {
+const SidebarItemCollapse = (props: Props) => {
 
   const [open, setOpen] = useState(false);  
 
   const { appState } = useSelector((state: RootState) => state.appState)
 
   useEffect(() => {
-    if (appState.includes(item.state)) {
+    if (appState.includes(props.item.state)) {
       setOpen(true)
     }
-  }, [appState, item]);
+  }, [appState, props.item]);
   
   return (
-    item.sidebarProps ? (
+    props.item.sidebarProps ? (
         <>
         <ListItemButton
           onClick={() => (setOpen(!open))}
@@ -39,13 +40,13 @@ const SidebarItemCollapse = ({ item }: Props) => {
         <ListItemIcon sx={{
             color: colorConfigs.sidebar.color
         }}>
-          {item.sidebarProps.icon && item.sidebarProps.icon}
+          {props.item.sidebarProps.icon && props.item.sidebarProps.icon}
         </ListItemIcon>
         <ListItemText
           disableTypography
           primary={
             <Typography>
-                {item.sidebarProps.displayText}     
+                {props.item.sidebarProps.displayText}     
             </Typography>
           }        
         />
@@ -53,12 +54,12 @@ const SidebarItemCollapse = ({ item }: Props) => {
       </ListItemButton>
       <Collapse in={open} timeout="auto">
         <List>
-            {item.child?.map((route, index) => (
+            {props.item.child?.map((route, index) => (
             route.sidebarProps ? (
                 route.child ? (
-                <SidebarItemCollapse item={route} />
+                <SidebarItemCollapse item={route} key={index} handleDrawerToggle={props.handleDrawerToggle}/>
                 ) : (
-                <SidebarItem item={route} key={index} />
+                <SidebarItem item={route} key={index} handleDrawerToggle={props.handleDrawerToggle}/>
                 )
             ) : null
             ))}
